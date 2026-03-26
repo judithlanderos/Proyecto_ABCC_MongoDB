@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios Escolares</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+
+  <div class="text-center py-4 border-bottom">
+    <h1 class="fw-bold">SERVICIOS ESCOLARES</h1>
+  </div>
+
+  <div class="container mt-3">
+
+    <nav class="mb-3">
+      <span><a href="/" class="text-decoration-none">Inicio</a> / Alumnos</span>
+    </nav>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <span class="fw-bold fs-5">Listado de Alumnos</span>
+        <a href="/altas" class="btn btn-success btn-sm">+ Agregar Alumno</a>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-bordered table-hover mb-0">
+          <thead class="table-dark text-center">
+            <tr>
+              <th>Núm. Control</th>
+              <th>Nombre</th>
+              <th>Primer Ap.</th>
+              <th>Segundo Ap.</th>
+              <th>Fecha Nac.</th>
+              <th>Semestre</th>
+              <th>Carrera</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% if (alumnos && alumnos.length > 0) { %>
+              <% alumnos.forEach(a => { %>
+                <tr>
+                  <td><%= a.numControl %></td>
+                  <td><%= a.nombre %></td>
+                  <td><%= a.primerAp %></td>
+                  <td><%= a.segundoAp %></td>
+                  <td><%= a.fechaNac %></td>
+                  <td><%= a.semestre %></td>
+                  <td><%= a.carrera %></td>
+                  <td>
+                    <a href="/alumnos/detalle/<%= a._id %>" class="btn btn-primary btn-sm">Detalle</a>
+                    <a href="/alumnos/editar/<%= a._id %>" class="btn btn-warning btn-sm">Editar</a>
+                    <form method="POST" action="/alumnos/<%= a._id %>?_method=DELETE" class="d-inline"
+                          onsubmit="return confirm('¿Seguro que deseas eliminar este alumno?')">
+                      <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="8" class="text-muted py-3">No hay alumnos registrados.</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="text-muted text-center mt-4 mb-3">FOOTER</footer>
+
+</body>
+</html>
